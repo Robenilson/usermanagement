@@ -6,8 +6,8 @@ import lombok.Data;
 
 
 @Data
-@MappedSuperclass
-public  class User {
+@Entity
+public  class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,7 +15,10 @@ public  class User {
     private String dataNacsimento;
     private String senha;
     private String email;
+    private  String role;
 
 
+    public Users() {
+    }
 }
 

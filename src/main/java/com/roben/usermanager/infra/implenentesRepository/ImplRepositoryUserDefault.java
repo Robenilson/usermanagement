@@ -1,16 +1,15 @@
 package com.roben.usermanager.infra.implenentesRepository;
 
-import com.roben.usermanager.adapter.DTO.ManagerUserDTO;
-import com.roben.usermanager.adapter.DTO.UserDefalutDTO;
-import com.roben.usermanager.core.interfaces.portaSaida.IRepositoryUserDefault;
-import com.roben.usermanager.core.interfaces.portaSaida.IRepositoryUserManeger;
-import com.roben.usermanager.infra.entity.DefaultUser;
-import com.roben.usermanager.infra.entity.ManagerUser;
-import com.roben.usermanager.infra.interfaceRepository.UserDefaultRepository;
+import com.roben.usermanager.adapter.DTO.Convert;
+import com.roben.usermanager.core.port.portaSaida.IRepositoryUser;
+import com.roben.usermanager.infra.entity.SuperBaseEntity.Users;
+import com.roben.usermanager.infra.interfaceR.UserDefaultRepository;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ImplRepositoryUserDefault  implements IRepositoryUserDefault {
+public class ImplRepositoryUserDefault  implements IRepositoryUser {
 
 
     private final UserDefaultRepository userDefaultRepository;
@@ -22,21 +21,19 @@ public class ImplRepositoryUserDefault  implements IRepositoryUserDefault {
 
 
     @Override
-    public void salvar(UserDefalutDTO userDefalutDTO) {
-        this.userDefaultRepository.save(this.managerUserConvert(userDefalutDTO));
+    public void salvar(Users users) {
+        this.userDefaultRepository.save(users);
+   }
+
+
+
+
+    @Override
+    public UserDetails findByNome(String nome) {
+
+        return (UserDetails) this.userDefaultRepository.findByNome(nome);
     }
 
 
 
-
-    private DefaultUser managerUserConvert(UserDefalutDTO userDefalutDTO) {
-        DefaultUser defaultUser = new DefaultUser();
-        defaultUser.setNome(userDefalutDTO.getNome());
-        defaultUser.setEmail(userDefalutDTO.getEmail());
-        defaultUser.setSenha(userDefalutDTO.getSenha());
-        defaultUser.setDataNacsimento(userDefalutDTO.getDataNacsimento());
-        defaultUser.setNotification(userDefalutDTO.getNotification());
-        return defaultUser;
-
-    }
 }
