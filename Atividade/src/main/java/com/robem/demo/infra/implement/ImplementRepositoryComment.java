@@ -11,7 +11,6 @@ public class ImplementRepositoryComment implements IRepositoryComment {
     private  final RepositoryCommentBD repositoryComment;
 
 
-
     public ImplementRepositoryComment(RepositoryCommentBD repositoryComment) {
         this.repositoryComment = repositoryComment;
     }

@@ -19,4 +19,6 @@ public class PublicationBD {
     private String titlulo;
     private String content;
 
+
+
 }
