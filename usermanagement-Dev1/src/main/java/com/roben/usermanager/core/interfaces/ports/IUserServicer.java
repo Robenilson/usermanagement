@@ -1,8 +1,6 @@
 package com.roben.usermanager.core.interfaces.ports;
 
-import com.roben.usermanager.adapter.DTO.GetUserDTO;
-import com.roben.usermanager.adapter.DTO.NewUserDTO;
-import com.roben.usermanager.core.security.entitys.Users;
+import com.roben.usermanager.core.security.domain.Users;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;

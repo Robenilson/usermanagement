@@ -1,8 +1,10 @@
 package com.robem.demo.core.services;
 
-import com.robem.demo.adapter.ports.IPublicationServece;
+import com.robem.demo.adapter.Adapter;
+import com.robem.demo.core.domain.Publication;
+import com.robem.demo.core.ports.IPublicationServece;
+import com.robem.demo.adapter.DTO.RecordPublication;
 import com.robem.demo.core.ports.IReposotryPublication;
-import com.robem.demo.infra.Bd.PublicationBD;
 
 import java.util.List;
 
@@ -13,15 +15,17 @@ public class PublicationService implements IPublicationServece {
 
 
     public PublicationService(IReposotryPublication reposotryPublication) {
+
         this.reposotryPublication = reposotryPublication;
     }
 
-    public  void save(PublicationBD obj){
-        this.reposotryPublication.save(obj);
+    public  void save( Publication obj){
+        this.reposotryPublication.save(Adapter.adptPublicationEntity(obj));
     }
 
 
-    public List<PublicationBD> listPublication(PublicationBD obj){
-        return  this.reposotryPublication.listPublication(obj);
+    public List<RecordPublication> listPublication(RecordEmail obj){
+
+        return  Adapter.adptPublicationEntity( this.reposotryPublication.listPublication(obj.email()) );
     }
 }

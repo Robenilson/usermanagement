@@ -1,11 +1,12 @@
 package com.robem.demo.core.ports;
 
-import com.robem.demo.infra.Bd.PublicationBD;
+import com.robem.demo.infra.Entity.PublicationEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IReposotryPublication {
-    public  void save(PublicationBD obj);
+    public  void save(PublicationEntity obj);
 
-    public List<PublicationBD> listPublication(PublicationBD obj);
+    public List<PublicationEntity> listPublication(String email);
 }

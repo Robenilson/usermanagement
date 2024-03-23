@@ -1,8 +1,8 @@
 package com.robem.demo.core.configuration;
 
 
-import com.robem.demo.adapter.ports.ICommetServece;
-import com.robem.demo.adapter.ports.IPublicationServece;
+import com.robem.demo.core.ports.ICommetServece;
+import com.robem.demo.core.ports.IPublicationServece;
 import com.robem.demo.core.ports.IRepositoryComment;
 import com.robem.demo.core.ports.IReposotryPublication;
 import com.robem.demo.core.services.CommentService;
@@ -21,4 +21,7 @@ public class BeanConfiguracao {
     IPublicationServece publicationDefaulService(IReposotryPublication reposotryPublication) {
         return new PublicationService(reposotryPublication);
     }
+
+
+
 }

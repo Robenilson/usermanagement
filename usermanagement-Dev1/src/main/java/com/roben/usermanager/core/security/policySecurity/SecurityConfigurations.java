@@ -1,18 +1,10 @@
 package com.roben.usermanager.core.security.policySecurity;
 
-import com.roben.usermanager.core.configuration.BeanConfiguracao;
-import com.roben.usermanager.core.interfaces.ports.IRepositoryUser;
-import com.roben.usermanager.core.interfaces.ports.IUserServicer;
-import com.roben.usermanager.core.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.SecurityBuilder;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -38,10 +30,12 @@ public class SecurityConfigurations  {
                 .csrf( csrf ->csrf.disable())
                 .sessionManagement(session ->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/user/login/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/user/email/").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/register/").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/user/get/").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/refreshToken").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/buscar/{email}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/user/get").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/user/valid/{token}").permitAll()
                         .anyRequest().authenticated()
 
                 )
@@ -63,6 +57,10 @@ public class SecurityConfigurations  {
     public PasswordEncoder passwordEncoder(){
         return  new BCryptPasswordEncoder();
     }
+
+
+
+
 
 
 

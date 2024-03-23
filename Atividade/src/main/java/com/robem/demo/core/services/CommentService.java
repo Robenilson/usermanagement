@@ -1,6 +1,6 @@
 package com.robem.demo.core.services;
 
-import com.robem.demo.adapter.ports.ICommetServece;
+import com.robem.demo.core.ports.ICommetServece;
 import com.robem.demo.core.ports.IRepositoryComment;
 
 

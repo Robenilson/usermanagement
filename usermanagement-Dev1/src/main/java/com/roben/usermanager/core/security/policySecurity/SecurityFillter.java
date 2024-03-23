@@ -1,12 +1,11 @@
 package com.roben.usermanager.core.security.policySecurity;
 
 import com.roben.usermanager.core.interfaces.ports.IUserServicer;
-import com.roben.usermanager.core.services.TokenService;
+import com.roben.usermanager.core.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +16,11 @@ import java.io.IOException;
 
 @Component
 public class SecurityFillter  extends OncePerRequestFilter {
-    final TokenService tokenService;
+    final JwtService tokenService;
 
     final  IUserServicer iUserServicer;
 
-    public SecurityFillter(TokenService tokenService, IUserServicer iUserServicer) {
+    public SecurityFillter(JwtService tokenService, IUserServicer iUserServicer) {
         this.tokenService = tokenService;
         this.iUserServicer = iUserServicer;
     }
@@ -30,8 +29,13 @@ public class SecurityFillter  extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
         if(token != null){
-            var login = tokenService.validateToken(token);
+
+            var login = tokenService.extractUsername(token);
+
+
+
             UserDetails user =  iUserServicer.loadUserByUsername(login);
+
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
